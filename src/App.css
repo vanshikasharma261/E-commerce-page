@@ -480,11 +480,23 @@ nav ul li a:hover {
 /* ================= TOTAL ================= */
 
 .cart-total {
-  margin-top: 25px;
+  margin-top: 5px;
   padding: 20px;
   border-radius: 12px;
   text-align: right;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+.cart-order {
+  margin-top: 5px;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: left;
+}
+.place-btn {
+  background-color: #119648;
+}
+
+.place-btn:hover {
+  background-color: #207644;
 }
 
 .cart-total h2 {
