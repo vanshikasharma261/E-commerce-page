@@ -1,14 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { removeItem } from "./redux/slice";
+import { removeItem, addItem } from "./redux/slice";
 
 function CartPage() {
   const cartSelector = useSelector((state) => state.cart.items);
+  //   console.log("Right Now Cart is: ", cartSelector);
   const dispatch = useDispatch();
   const handleRemove = (cartItem) => {
     dispatch(removeItem(cartItem));
   };
-  const [count, setCount] = useState(0);
+
   return (
     <>
       <div className="cart-page">
@@ -21,27 +22,27 @@ function CartPage() {
           </div>
           {cartSelector &&
             cartSelector.map((cartItems) => (
-              <div className="cart-card">
+              <div className="cart-card" key={cartItems.id}>
                 <div className="card-left">
                   <img src={cartItems.thumbnail} />
                 </div>
                 <div className="card-right">
                   <div className="cardRight-details">
                     <h2>{cartItems.title}</h2>
-                    <p>{cartItems.price}</p>
+                    <p>{(cartItems.price * cartItems.quantity).toFixed(2)}</p>
                   </div>
                   <div className="cardRight-counter">
                     <div className="right-buttons">
                       <button
                         className="increaseCounter"
-                        onClick={() => setCount(count + 1)}
+                        onClick={() => dispatch(addItem(cartItems))}
                       >
                         +
                       </button>
-                      <p>{count}</p>
+                      <p>{cartItems.quantity}</p>
                       <button
                         className="decreaseCounter"
-                        onClick={() => setCount(count - 1)}
+                        onClick={() => dispatch(removeItem(cartItems))}
                       >
                         -
                       </button>
@@ -62,7 +63,7 @@ function CartPage() {
             <h2>
               Total Price: $
               {cartSelector
-                .reduce((total, item) => total + item.price, 0)
+                .reduce((total, item) => total + item.price * item.quantity, 0)
                 .toFixed(2)}
             </h2>
           </div>
