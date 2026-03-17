@@ -1,23 +1,22 @@
 import { useDispatch, useSelector } from "react-redux";
-import mouse_img from "./assets/wireless-mouse.png";
 import { addItem, removeItem } from "./redux/slice";
 import { fetchProduct } from "./redux/productSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 function Product() {
   const dispatch = useDispatch();
 
-  const handleAddClick = () => {
-    dispatch(addItem(1));
+  const handleAddClick = (item) => {
+    dispatch(addItem(item));
   };
-  const handleRemoveClick = () => {
-    dispatch(removeItem(1));
+  const handleRemoveClick = (item) => {
+    dispatch(removeItem(item));
   };
   useEffect(() => {
     dispatch(fetchProduct());
   }, []);
 
   const productSelector = useSelector((state) => state.product.items);
-  console.log(productSelector);
+  const cartSelector = useSelector((state) => state.cart.items);
 
   return (
     <div className="grid">
@@ -30,9 +29,18 @@ function Product() {
               <div className="brand">{item.brand}</div>
               <div className="price">${item.price}</div>
               <div className="rating">{item.rating}</div>
-              <button className="btn" onClick={handleAddClick}>
-                Add to Cart
-              </button>
+              {cartSelector.find((cartItem) => cartItem.id === item.id) ? (
+                <button
+                  className="btn remove-btn"
+                  onClick={() => handleRemoveClick(item)}
+                >
+                  Remove from Cart
+                </button>
+              ) : (
+                <button className="btn" onClick={() => handleAddClick(item)}>
+                  Add to Cart
+                </button>
+              )}
             </div>
           </div>
         ))}

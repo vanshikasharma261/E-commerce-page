@@ -1,21 +1,27 @@
+import js from "@eslint/js";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    value: 0
+    items: localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
 };
 
 const cartSlice = createSlice({
     name: "cart",
     initialState,
     reducers: {
-        addItem: (state) => {
-            state.value += 1
+        addItem: (state, action) => {
+            state.items.push(action.payload)
+            localStorage.setItem('cart', JSON.stringify(state.items));
+            // console.log("New Cart after adding is: ", state.items);
         },
-        removeItem: (state) => {
-            state.value > 0 ? state.value -= 1 : null
+        removeItem: (state, action) => {
+            state.items = state.items.filter((cartItem) => cartItem.id != action.payload.id)
+            localStorage.setItem('cart', JSON.stringify(state.items));
+            // console.log("New cart after removinf is: ", state.items);
         },
         clearAllItems: (state) => {
-            state.value = 0;
+            state.items = []
+            localStorage.setItem('cart', JSON.stringify(state.items));
         }
     }
 });

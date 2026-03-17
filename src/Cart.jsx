@@ -1,13 +1,13 @@
 import { useSelector } from "react-redux";
 import cart_img from "./assets/cart-img.png";
 function Cart() {
-  const selector = useSelector((state) => state.cart.value);
+  const cartSelector = useSelector((state) => state.cart.items);
 
   return (
     <>
       <div className="cart">
         <img src={cart_img} className="cart-img" />
-        <span className="cart-count">{selector}</span>
+        <span className="cart-count">{cartSelector.length}</span>
       </div>
     </>
   );

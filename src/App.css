@@ -208,3 +208,10 @@ nav ul li a:hover {
     font-size: 20px;
   }
 }
+
+.btn-disabled {
+  background-color: gainsboro;
+}
+.btn-disabled:hover {
+  background-color: gainsboro;
+}
