@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import logo from "./assets/logo-img.png";
 import Cart from "./Cart";
 
@@ -11,16 +12,16 @@ function Header() {
       <nav>
         <ul>
           <li>
-            <a href="">Home</a>
+            <Link to="/">Home</Link>
           </li>
           <li>
-            <a href="">About</a>
+            <Link to="/">About</Link>
           </li>
           <li>
-            <a href="">Products</a>
+            <Link to="/products">Products</Link>
           </li>
           <li>
-            <a href="">Contact</a>
+            <Link to="/">Contact</Link>
           </li>
         </ul>
       </nav>
